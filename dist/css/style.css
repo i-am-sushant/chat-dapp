@@ -1,0 +1,89 @@
+/* General Body and Font Styles */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    line-height: 1.6;
+    color: #333; /* Darker default text for better readability */
+}
+
+/* Scrollbar Styling (Subtle - Webkit browsers) */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+}
+
+/* Input field focus */
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Button Enhancements */
+.btn {
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    letter-spacing: 0.5px; /* Slightly more space between letters */
+}
+
+.btn:hover {
+    transform: translateY(-1px); /* Subtle lift effect */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Specific Button Theming (complementing Bootstrap) */
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0050a6;
+}
+.btn-success:hover {
+    background-color: #1e7e34;
+    border-color: #1c7430;
+}
+.btn-info:hover {
+    background-color: #117a8b;
+    border-color: #10707f;
+}
+.btn-outline-light:hover {
+    color: #343a40; /* Darker text on hover for light outline buttons */
+}
+
+
+/* Status Icon Colors (ensure these are distinct and clear) */
+.yellow-color {
+    color: #ffc107 !important; /* Bootstrap yellow, !important if needed to override other styles */
+}
+
+.green-color {
+    color: #28a745 !important; /* Bootstrap green */
+}
+
+.red-color {
+    color: #dc3545 !important; /* Bootstrap red */
+}
+
+/* Old .messageBox style - This is largely superseded by #messageContainer in embedded HTML styles. */
+/* You can remove this if .messageBox class is not specifically styled for other purposes. */
+
+/*.messageBox { */
+    /* height: 400px; */ /* Likely overridden or not needed */
+    /* overflow: auto; */  /* Likely overridden or not needed */
+/*} */
+
+/* Color utility classes - update or remove if not used by JS for specific text elements */
+.blue-color {
+    color: #007bff; /* Bootstrap primary blue */
+}
+
+/* Add any other global styles or refinements below */
