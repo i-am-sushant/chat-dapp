@@ -1,0 +1,187 @@
+/* Custom CSS for Decentralized Chat */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+}
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#status {
+    font-weight: 500;
+}
+
+.status-icon-green {
+    color: #28a745; /* Bootstrap success green */
+}
+
+.status-icon-yellow {
+    color: #ffc107; /* Bootstrap warning yellow */
+}
+
+.status-icon-red {
+    color: #dc3545; /* Bootstrap danger red */
+}
+
+#messageContainer {
+    height: calc(100vh - 370px); /* Adjusted to account for navbar and max footer height */
+    overflow-y: auto;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    /* margin-bottom: 15px; */ /* Removed as height is now more precisely calculated */
+}
+
+#messageBox p {
+    margin-bottom: 12px;
+    padding: 10px 15px;
+    border-radius: 18px;
+    line-height: 1.5;
+    max-width: 75%;
+    word-wrap: break-word;
+}
+
+#messageBox p .timestamp {
+    font-size: 0.75em;
+    color: #888;
+    display: block;
+    margin-bottom: 3px;
+}
+
+#messageBox p .author {
+    font-weight: bold;
+    margin-right: 8px;
+    color: #007bff; /* Bootstrap primary blue */
+}
+
+#messageBox p .content {
+    font-size: 0.95em;
+}
+
+/* Message alignment */
+#messageBox p.message-self {
+    background-color: #007bff; /* Primary color for self messages */
+    color: white;
+    margin-left: auto;
+    border-bottom-right-radius: 5px;
+}
+#messageBox p.message-self .author {
+    color: #e6f2ff; /* Lighter color for author on dark background */
+}
+#messageBox p.message-self .timestamp {
+    color: #cce0ff; /* Lighter color for timestamp */
+}
+
+
+#messageBox p.message-peer {
+    background-color: #e9ecef; /* Light grey for peer messages */
+    color: #333;
+    margin-right: auto;
+    border-bottom-left-radius: 5px;
+}
+#messageBox p.message-peer .author {
+    color: #0056b3; /* Darker blue for peer author */
+}
+
+#messageBox p.message-system {
+    background-color: #f8f9fa;
+    color: #6c757d;
+    font-style: italic;
+    text-align: center;
+    max-width: 100%;
+    font-size: 0.85em;
+    border-radius: 5px;
+}
+#messageBox p.message-system .author {
+    display: none; /* Hide author for system messages if it's always 'System' */
+}
+
+
+.input-group-text {
+    background-color: #e9ecef;
+    border-color: #ced4da;
+}
+
+#messageText, #rid {
+    border-radius: 0.25rem; /* Match Bootstrap's default border-radius */
+}
+
+#messageText:focus, #rid:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+.btn-outline-secondary {
+    color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-outline-secondary:hover {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-outline-primary {
+    color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-outline-primary:hover {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+
+#fileInput {
+    cursor: pointer;
+}
+
+#receivedFilesArea {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    margin-top: 20px;
+    max-height: 150px; /* You can adjust this value as needed */
+    overflow-y: auto; /* Add scrollbar if content exceeds max-height */
+}
+
+#receivedFilesArea h4 {
+    margin-bottom: 15px;
+    color: #007bff;
+}
+
+#receivedFilesArea a {
+    display: block;
+    margin-bottom: 8px;
+    color: #0056b3;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#receivedFilesArea a:hover {
+    background-color: #e9ecef;
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #messageContainer {
+        height: calc(100vh - 320px); /* Adjust for smaller screens if input areas stack */
+    }
+    #messageBox p {
+        max-width: 90%;
+    }
+    .navbar-collapse .input-group {
+        width: 100% !important;
+        margin-bottom: 10px;
+    }
+}
+

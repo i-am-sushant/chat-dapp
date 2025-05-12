@@ -28,14 +28,15 @@ $(document).ready(function () {
     // Set status
     function setStatus(status: string, newColor: string) {
         $('#status').text(status);
-        const colors = ['green', 'yellow', 'red'];
-        colors.forEach(function (item) {
-            if (newColor === item) {
-                $('#status-icon').addClass(item + '-color');
-            } else {
-                $('#status-icon').removeClass(item + '-color');
-            }
-        });
+        const statusIcon = $('#status-icon');
+        statusIcon.removeClass('status-icon-green status-icon-yellow status-icon-red'); // Remove existing color classes
+        if (newColor === 'green') {
+            statusIcon.addClass('status-icon-green');
+        } else if (newColor === 'yellow') {
+            statusIcon.addClass('status-icon-yellow');
+        } else if (newColor === 'red') {
+            statusIcon.addClass('status-icon-red');
+        }
     }
 
     // Get timestamp
@@ -207,8 +208,7 @@ $(document).ready(function () {
     // Call when Peer connection is established
     function ready() {
         conn.on('open', function () {
-            // Change status and set RID
-            setStatus('Connected', 'green');
+            setStatus('Connected to: ' + conn.peer, 'green');
             $('#rid').val(conn.peer);
         });
 
@@ -276,17 +276,29 @@ $(document).ready(function () {
 
     // Add message to html
     function addMessage(msg: any) {
-        let authorSpan: string;
-        switch (msg.author) {
-            case peer.id:
-                authorSpan = '<span class=\"red-color\"> - ' + msg.author + ' : </span>';
-                break;
-            default:
-                authorSpan = '<span class=\"green-color\"> - ' + msg.author + ' : </span>';
-                break;
+        let authorDisplay: string;
+        let messageClass = '';
+
+        if (msg.author === 'System') {
+            authorDisplay = `<span class="author">System:</span>`;
+            messageClass = 'message-system';
+        } else if (msg.author === peer.id) {
+            authorDisplay = `<span class="author">Me:</span>`;
+            messageClass = 'message-self';
+        } else {
+            authorDisplay = `<span class="author">${msg.author}:</span>`;
+            messageClass = 'message-peer';
         }
 
-        $('#messageBox').append('<p><span class=\"blue-color\">' + getTimestamp(msg.timestamp) + '</span>' + authorSpan + '<span>' + msg.content + '</span></p>');
+        const sanitizedContent = $('<div>').text(msg.content).html(); 
+
+        $('#messageBox').append(
+            `<p class="${messageClass}">` +
+            `<span class="timestamp">${getTimestamp(msg.timestamp)}</span>` +
+            authorDisplay +
+            `<span class="content">${sanitizedContent}</span>` +
+            `</p>`
+        );
         $('#messageContainer').animate({
             scrollTop: $('#messageContainer').prop('scrollHeight')
         }, 0);
@@ -348,12 +360,29 @@ $(document).ready(function () {
                 if (conn && conn.open) {
                     sendFileInChunks(file, conn);
                 } else {
-                    addMessage(createMessage('System: Not connected to a peer. Cannot send file.'));
+                    addMessage(createMessage('System: Not connected to a peer to send file.'));
+                }
+                fileInput.value = ''; // Reset file input
+                const customFileLabel = document.querySelector('.custom-file-label');
+                if (customFileLabel) {
+                    customFileLabel.textContent = 'Choose file';
                 }
             } else {
-                addMessage(createMessage('System: No file selected.'));
+                addMessage(createMessage('System: Please select a file to send.'));
             }
         };
+    }
+
+    // Update custom file input label on change
+    const customFileInput = document.getElementById('fileInput') as HTMLInputElement;
+    if (customFileInput) {
+        customFileInput.addEventListener('change', function(e) {
+            const fileName = (e.target as HTMLInputElement).files[0]?.name || 'Choose file';
+            const nextSibling = (e.target as HTMLElement).nextElementSibling;
+            if (nextSibling && nextSibling.classList.contains('custom-file-label')) {
+                nextSibling.innerHTML = fileName;
+            }
+        });
     }
 
     initialize();
